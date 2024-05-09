@@ -1,6 +1,5 @@
-
 import axios from "axios"
-const baseURL = "http://localhost:3001/api/persons" // this was modified to /api/persons for the backend c: - just /persons would work with the json-server, but that's not used in the version deployed to Internet
+const baseURL = "/api/persons" // this was modified to /api/persons for the backend, WHEN the frontend production build in folder 'dist' is copied to the backend so that this relative address works! c: - just /persons would work with the json-server, but that's not used in the version deployed to Internet
 
 const getAll = () => {
     return axios.get(baseURL).then(response => response.data)
