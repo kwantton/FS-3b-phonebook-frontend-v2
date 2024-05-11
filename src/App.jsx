@@ -89,15 +89,15 @@ const App = () => {
               return updateePerson
             } // if the id's match, then change that person (with the new number, that is!)
           }))
+          consoleMessage = `lisättiin ${updateePerson}`
+          setMessage(`Contact ${updateePerson.name}'s number updated`) // CHECK
+          setTimeout(() => {          
+            setMessage("")        // odottaa 5 sekuntia, minkä jälkeen laittaa viestin arvoksi "null"
+          }, 5000)
         })
         .catch(error => {
-          alert(error.response.data.error) // THIS IS FROM 3.19
+          alert(error.response.data.error) // THIS IS FROM 3.19; so the "frontend" indeed gets the error message from backend's mongoose
         })
-        consoleMessage = `lisättiin ${updateePerson}`
-        setMessage(`Contact ${updateePerson.name}'s number updated`) // CHECK
-        setTimeout(() => {          
-          setMessage("")        // odottaa 5 sekuntia, minkä jälkeen laittaa viestin arvoksi "null"
-        }, 5000)
       }
     } else { // jos UUSI nimi, jota ei ole vielä phonebookissa: id-arvo pitää hakea serveriltä, koska serveri asettaa id:n!
       peopleTools.create(newPersonObject) // POST, jonka paluuarvona on RESTin mukaan pelkkä ihminen, muotoa {name:jaska,number:1213,id:serverin_antama_nimi}
