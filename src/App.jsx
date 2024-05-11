@@ -23,7 +23,7 @@ const App = () => {
       console.log("-persons:", persons)
       people.map(dude => {
         console.log("-lisättävä nimi:", dude.name.toLowerCase())
-        const personsNamesCopy = personsNames // pakottaa päivittämään! c:
+        const personsNamesCopy = personsNames // pakottaa päivittämään! c: JOS YRITÄT LAITTAA TÄHÄN personsNamesCopy = [...personsNames], niin ei näytä toimivan. Be warned.
         personsNamesCopy.push(dude.name.toLowerCase())
         setNewPersonsName(personsNamesCopy) // tätä EI näköjään voi laittaa suoraan personsNames.concat(dud.name.toLowerCase()):nä; varmaan asyncin takia ei päivitä joka kerta statea! Testaa ihmeessä ja katso console.log... sinne ei päivity mitään jos näin yritetään tehdä :c
         console.log("-personsNames lisäyksen jälkeen:", personsNames)
@@ -91,7 +91,7 @@ const App = () => {
           }))
         })
         .catch(error => {
-          console.error(error)
+          alert(error.response.data.error) // THIS IS FROM 3.19
         })
         consoleMessage = `lisättiin ${updateePerson}`
         setMessage(`Contact ${updateePerson.name}'s number updated`) // CHECK
@@ -112,7 +112,9 @@ const App = () => {
           setMessage("")        // odottaa 5 sekuntia, minkä jälkeen laittaa viestin arvoksi "null"
         }, 5000)
         }
-      )
+      ).catch(error => {
+        alert(error.response.data.error) // THIS IS FROM 3.19 after implementing mongoose "person" validation (which throws an error if name < 3 characters or number < 8 characters) https://fullstackopen.com/en/part3/validation_and_es_lint#exercises-3-19-3-21
+      })
     }
     
     let updatedpersons = persons // without this, the update will not necessarily be seen right away since async!!
